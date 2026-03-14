@@ -10,9 +10,14 @@ export interface FairShareEntry {
 interface FairShareTableProps {
 	entries: FairShareEntry[];
 	affordable: boolean;
+	currentEmail?: string;
 }
 
-export function FairShareTable({ entries, affordable }: FairShareTableProps) {
+export function FairShareTable({
+	entries,
+	affordable,
+	currentEmail,
+}: FairShareTableProps) {
 	if (!affordable) {
 		return (
 			<p className="text-red-500 text-xs">
@@ -21,43 +26,47 @@ export function FairShareTable({ entries, affordable }: FairShareTableProps) {
 		);
 	}
 
+	const myEntry = currentEmail
+		? entries.find((e) => e.email === currentEmail)
+		: null;
+
+	if (!myEntry) {
+		return (
+			<p className="text-muted-foreground text-xs italic">
+				Submit your vote to see your share.
+			</p>
+		);
+	}
+
+	const usesFullBudget =
+		Math.abs(myEntry.share - myEntry.budget) < 0.01 && myEntry.share > 0;
+
 	return (
 		<div className="space-y-1">
-			{entries.map((entry) => {
-				const usesFullBudget =
-					Math.abs(entry.share - entry.budget) < 0.01 && entry.share > 0;
-				return (
-					<div
-						key={entry.email}
-						className="flex items-center justify-between text-xs"
+			<div className="flex items-center justify-between text-xs">
+				<span className="truncate text-muted-foreground">Your share</span>
+				<div className="flex items-center gap-2">
+					<span
+						className={cn(
+							"font-mono tabular-nums",
+							usesFullBudget
+								? "text-amber-600 dark:text-amber-400"
+								: "text-foreground",
+						)}
 					>
-						<span className="truncate text-muted-foreground">
-							{entry.email}
-						</span>
-						<div className="flex items-center gap-2">
-							<span
-								className={cn(
-									"font-mono tabular-nums",
-									usesFullBudget
-										? "text-amber-600 dark:text-amber-400"
-										: "text-foreground",
-								)}
-							>
-								$
-								{entry.share.toLocaleString(undefined, {
-									minimumFractionDigits: 2,
-									maximumFractionDigits: 2,
-								})}
-							</span>
-							{usesFullBudget && (
-								<Badge variant="outline" className="h-4 px-1 text-[10px]">
-									maxed
-								</Badge>
-							)}
-						</div>
-					</div>
-				);
-			})}
+						$
+						{myEntry.share.toLocaleString(undefined, {
+							minimumFractionDigits: 2,
+							maximumFractionDigits: 2,
+						})}
+					</span>
+					{usesFullBudget && (
+						<Badge variant="outline" className="h-4 px-1 text-[10px]">
+							maxed
+						</Badge>
+					)}
+				</div>
+			</div>
 		</div>
 	);
 }

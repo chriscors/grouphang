@@ -7,13 +7,19 @@ import { calculateAggregateRankings } from "@grouphang/backend/convex/lib/rankin
 import { Badge } from "@grouphang/ui/components/badge";
 import { useQuery } from "convex/react";
 import { Loader2, Users } from "lucide-react";
-import { useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { CampyHeader } from "./campy-header";
 import { type AirbnbComment, ResultCard } from "./result-card";
 
 export function ResultsPage() {
 	const airbnbs = useQuery(api.airbnbs.list);
 	const responses = useQuery(api.responses.list);
+
+	const [currentEmail, setCurrentEmail] = useState<string>();
+	useEffect(() => {
+		const saved = localStorage.getItem("grouphang-email");
+		if (saved) setCurrentEmail(saved);
+	}, []);
 
 	const results = useMemo(() => {
 		if (!airbnbs || !responses || responses.length === 0) return null;
@@ -145,6 +151,7 @@ export function ResultsPage() {
 								twoNight={result.twoNight}
 								threeNight={result.threeNight}
 								comments={result.comments}
+								currentEmail={currentEmail}
 							/>
 						);
 					})}

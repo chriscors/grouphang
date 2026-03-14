@@ -38,6 +38,7 @@ interface ResultCardProps {
 	twoNight: PricingOption;
 	threeNight: PricingOption | null;
 	comments: AirbnbComment[];
+	currentEmail?: string;
 }
 
 function PricingSection({
@@ -48,6 +49,7 @@ function PricingSection({
 	pooledBudget,
 	affordable,
 	fairShares,
+	currentEmail,
 }: {
 	label: string;
 	dates: string;
@@ -56,6 +58,7 @@ function PricingSection({
 	pooledBudget: number;
 	affordable: boolean;
 	fairShares: FairShareEntry[];
+	currentEmail?: string;
 }) {
 	const pricePerPerson = voterCount > 0 ? price / voterCount : 0;
 	return (
@@ -84,7 +87,7 @@ function PricingSection({
 				<h5 className="mb-1.5 font-semibold text-muted-foreground text-xs uppercase tracking-wide">
 					Fair Share
 				</h5>
-				<FairShareTable entries={fairShares} affordable={affordable} />
+				<FairShareTable entries={fairShares} affordable={affordable} currentEmail={currentEmail} />
 			</div>
 		</div>
 	);
@@ -102,6 +105,7 @@ export function ResultCard({
 	twoNight,
 	threeNight,
 	comments,
+	currentEmail,
 }: ResultCardProps) {
 	const [commentsOpen, setCommentsOpen] = useState(false);
 	const eitherAffordable =
@@ -179,7 +183,8 @@ export function ResultCard({
 						pooledBudget={twoNight.pooledBudget}
 						affordable={twoNight.affordable}
 						fairShares={twoNight.fairShares}
-					/>
+					currentEmail={currentEmail}
+	/>
 					{threeNight ? (
 						<div className="sm:pl-6">
 							<PricingSection
@@ -190,6 +195,7 @@ export function ResultCard({
 								pooledBudget={threeNight.pooledBudget}
 								affordable={threeNight.affordable}
 								fairShares={threeNight.fairShares}
+								currentEmail={currentEmail}
 							/>
 						</div>
 					) : (
