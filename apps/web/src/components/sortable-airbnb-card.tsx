@@ -10,18 +10,18 @@ import { AirbnbCard } from "./airbnb-card";
 
 interface SortableAirbnbCardProps {
 	airbnb: Doc<"airbnbs">;
-	voterCount?: number;
 	rank?: number;
 	comment?: string;
 	onCommentChange?: (airbnbId: Id<"airbnbs">, text: string) => void;
+	onRemove?: () => void;
 }
 
 export function SortableAirbnbCard({
 	airbnb,
-	voterCount,
 	rank,
 	comment,
 	onCommentChange,
+	onRemove,
 }: SortableAirbnbCardProps) {
 	const [showComment, setShowComment] = useState(!!comment);
 
@@ -43,20 +43,30 @@ export function SortableAirbnbCard({
 
 	return (
 		<div ref={setNodeRef} style={style}>
-			<div {...attributes} {...listeners}>
-				<AirbnbCard
-					name={airbnb.name}
-					imageUrl={airbnb.imageUrl}
-					price2Night={airbnb.price2Night}
-					price3Night={airbnb.price3Night}
-					location={airbnb.location}
-					url={airbnb.url}
-					accessibility={airbnb.accessibility}
-					voterCount={voterCount}
-					rank={rank}
-					showDragHandle
-					compact
-				/>
+			<div className="relative">
+				<div {...attributes} {...listeners}>
+					<AirbnbCard
+						name={airbnb.name}
+						imageUrl={airbnb.imageUrl}
+						price2Night={airbnb.price2Night}
+						price3Night={airbnb.price3Night}
+						location={airbnb.location}
+						url={airbnb.url}
+						accessibility={airbnb.accessibility}
+						rank={rank}
+						showDragHandle
+						compact
+					/>
+				</div>
+				{onRemove && (
+					<button
+						type="button"
+						onClick={onRemove}
+						className="absolute top-2 right-2 z-20 bg-background/80 p-0.5 text-muted-foreground hover:text-destructive"
+					>
+						<X className="size-3.5" />
+					</button>
+				)}
 			</div>
 			{onCommentChange && (
 				<div className="border border-border border-t-0 px-3 pb-2">

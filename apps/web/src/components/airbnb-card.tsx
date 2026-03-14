@@ -11,7 +11,6 @@ interface AirbnbCardProps {
 	location: string;
 	url: string;
 	accessibility: string;
-	voterCount?: number;
 	rank?: number;
 	showDragHandle?: boolean;
 	compact?: boolean;
@@ -25,13 +24,10 @@ export function AirbnbCard({
 	location,
 	url,
 	accessibility,
-	voterCount,
 	rank,
 	showDragHandle,
 	compact,
 }: AirbnbCardProps) {
-	const n = voterCount && voterCount > 0 ? voterCount : null;
-
 	return (
 		<Card
 			className={cn(
@@ -74,12 +70,6 @@ export function AirbnbCard({
 										${price2Night.toLocaleString()}
 									</span>
 									<span className="text-muted-foreground"> 2 nts</span>
-									{n && (
-										<span className="text-muted-foreground">
-											{" "}
-											· ~${Math.round(price2Night / n)}/pp
-										</span>
-									)}
 								</span>
 								{price3Night != null ? (
 									<span>
@@ -87,12 +77,6 @@ export function AirbnbCard({
 											${price3Night.toLocaleString()}
 										</span>
 										<span className="text-muted-foreground"> 3 nts</span>
-										{n && (
-											<span className="text-muted-foreground">
-												{" "}
-												· ~${Math.round(price3Night / n)}/pp
-											</span>
-										)}
 									</span>
 								) : (
 									<span className="text-muted-foreground italic">

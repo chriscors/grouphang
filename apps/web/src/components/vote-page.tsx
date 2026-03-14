@@ -10,13 +10,12 @@ import { toast } from "sonner";
 import { CampyHeader } from "./campy-header";
 import { EmailBudgetForm } from "./email-budget-form";
 import { RankingBoard } from "./ranking-board";
+import { useRouter } from "next/navigation";
 
 const EMAIL_STORAGE_KEY = "grouphang-email";
 
 export function VotePage() {
 	const airbnbs = useQuery(api.airbnbs.list);
-	const allResponses = useQuery(api.responses.list);
-
 	const [email, setEmail] = useState("");
 	const [budget, setBudget] = useState("");
 	const [rankedIds, setRankedIds] = useState<Id<"airbnbs">[]>([]);
@@ -25,7 +24,7 @@ export function VotePage() {
 	const [isReturning, setIsReturning] = useState(false);
 	const [submitting, setSubmitting] = useState(false);
 	const [initialized, setInitialized] = useState(false);
-
+	const router = useRouter();
 	const submit = useMutation(api.responses.submit);
 
 	const existingResponse = useQuery(
@@ -140,10 +139,9 @@ export function VotePage() {
 			toast.error("Something went wrong. Please try again.");
 		} finally {
 			setSubmitting(false);
+			router.push("/results");
 		}
 	};
-
-	const voterCount = allResponses?.length ?? 0;
 
 	if (!airbnbs) {
 		return (
@@ -178,7 +176,7 @@ export function VotePage() {
 							rankedIds={rankedIds}
 							unrankedIds={unrankedIds}
 							onRankingsChange={handleRankingsChange}
-							voterCount={Math.max(voterCount, 1)}
+	
 							comments={comments}
 							onCommentChange={handleCommentChange}
 						/>
