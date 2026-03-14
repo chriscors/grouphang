@@ -115,7 +115,7 @@ export function ResultsPage() {
 
 	return (
 		<div className="container mx-auto max-w-4xl px-4 pb-12">
-			<CampyHeader subtitle="The People Have Spoken" />
+			<CampyHeader subtitle="Budgeteering" />
 
 			<div className="mb-8 flex flex-wrap items-center justify-center gap-3">
 				<Badge variant="outline" className="gap-1 px-3 py-1">

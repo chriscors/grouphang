@@ -26,7 +26,7 @@
 	--border: oklch(0.38 0.07 145 / 0.45);
 	--input: oklch(0.30 0.05 155 / 0.8);
 	--ring: oklch(0.62 0.18 148);
-	--radius: 0rem;                             /* sharp, rustic */
+	--radius: 0.5rem;
 	--sidebar: oklch(0.14 0.045 155);
 	--sidebar-foreground: oklch(0.94 0.02 85);
 	--sidebar-primary: oklch(0.60 0.20 148);
