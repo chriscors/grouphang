@@ -16,7 +16,7 @@ export default function Header() {
 				<Link href="/" className="flex items-center gap-2">
 					<Trees className="size-5 text-emerald-400" />
 					<span className="font-display font-semibold text-emerald-50 text-lg">
-						Camp GroupHang
+						camp hedeetch
 					</span>
 				</Link>
 				<nav className="flex items-center gap-4">

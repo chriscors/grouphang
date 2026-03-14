@@ -17,7 +17,7 @@ const nunito = Nunito({
 });
 
 export const metadata: Metadata = {
-	title: "Camp GroupHang",
+	title: "camp hedeetch",
 	description: "Vote on your favorite Airbnb for our group vacation!",
 };
 

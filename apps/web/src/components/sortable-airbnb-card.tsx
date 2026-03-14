@@ -3,7 +3,7 @@
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import type { Doc, Id } from "@grouphang/backend/convex/_generated/dataModel";
-import { cn } from "@grouphang/ui/lib/utils";
+import { Textarea } from "@grouphang/ui/components/textarea";
 import { MessageSquare, X } from "lucide-react";
 import { useState } from "react";
 import { AirbnbCard } from "./airbnb-card";
@@ -97,15 +97,12 @@ export function SortableAirbnbCard({
 									<X className="size-3" />
 								</button>
 							</div>
-							<textarea
+							<Textarea
 								value={comment ?? ""}
 								onChange={(e) => onCommentChange(airbnb._id, e.target.value)}
 								placeholder="What do you think about this place?"
 								rows={2}
-								className={cn(
-									"w-full resize-none border border-input bg-transparent px-2.5 py-1.5 text-xs",
-									"placeholder:text-muted-foreground focus:border-ring focus:outline-none focus:ring-1 focus:ring-ring/50",
-								)}
+								className="min-h-0 resize-none"
 							/>
 						</div>
 					)}
