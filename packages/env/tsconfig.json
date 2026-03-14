@@ -1,3 +1,3 @@
 {
-  "extends": "@grouphang/config/tsconfig.base.json"
+	"extends": "@grouphang/config/tsconfig.base.json"
 }
